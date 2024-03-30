@@ -18,7 +18,11 @@ Route::get('/', App\Livewire\Home::class)->name('home');
 
 Route::middleware('auth')->get('/dashboard', App\Livewire\Dashboard::class)->name('dashboard');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', App\Livewire\Dashboard::class)->name('dashboard');
+    Route::get('/user-creation', App\Livewire\UserCreation::class)->name('user-creation');
+});
+
 Route::prefix('user')->group(function () {
     Route::get('/login', App\Livewire\User\Auth\Login::class)->name('user.login');
-    Route::get('/account-register', App\Livewire\User\Auth\AccountRegister::class)->name('user.account-register');
 });

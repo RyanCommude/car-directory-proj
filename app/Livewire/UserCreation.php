@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Livewire\User\Auth;
+namespace App\Livewire;
 
-use App\Livewire\Forms\User\AccountRegisterForm;
+use App\Livewire\Forms\User\UserCreationForm;
 use App\Services\UserService;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-class AccountRegister extends Component
+class UserCreation extends Component
 {
 
-    public AccountRegisterForm $form;
+    public UserCreationForm $form;
 
-    #[Title('User Registration')]
+    #[Title('User Creation')]
 
     public function save(UserService $service)
     {
@@ -24,6 +24,6 @@ class AccountRegister extends Component
 
     public function render()
     {
-        return view('livewire.user.auth.account-register');
+        return view('livewire.user-creation');
     }
 }

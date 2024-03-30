@@ -3,13 +3,18 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use App\Services\Concerns\HasCollectionPagination;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+    use HasCollectionPagination;
+
     public function __construct(
         private UserRepository $userRepository,
     ) {
@@ -44,5 +49,12 @@ class UserService
     {
         Auth::logout();
         session()->invalidate();
+    }
+
+    public function getUsers(bool $isPaginated = true): LengthAwarePaginator|Collection
+    {
+        return ($isPaginated == true)
+            ? $this->paginate($this->userRepository->fetchAll())
+            : $this->userRepository->fetchAll();
     }
 }

@@ -5,7 +5,7 @@ namespace App\Livewire\Forms\User;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
-class AccountRegisterForm extends Form
+class UserCreationForm extends Form
 {
     #[Validate('required', message: 'Please Enter your Full Name')]
     #[Validate('min:5', message: 'Full Name too short')]

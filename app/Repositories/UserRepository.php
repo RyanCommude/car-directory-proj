@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
@@ -14,5 +15,10 @@ class UserRepository
     public function fetchData(string $username): ?User
     {
         return User::where('username', $username)->first();
+    }
+
+    public function fetchAll(): Collection
+    {
+        return User::all();
     }
 }
