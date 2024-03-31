@@ -16,11 +16,10 @@ use Livewire\Livewire;
 
 Route::get('/', App\Livewire\Home::class)->name('home');
 
-Route::middleware('auth')->get('/dashboard', App\Livewire\Dashboard::class)->name('dashboard');
-
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', App\Livewire\Dashboard::class)->name('dashboard');
+    Route::get('/user-list', App\Livewire\UserList::class)->name('user-list');
     Route::get('/user-creation', App\Livewire\UserCreation::class)->name('user-creation');
+    Route::get('/car-list', App\Livewire\CarList::class)->name('car-list');
 });
 
 Route::prefix('user')->group(function () {

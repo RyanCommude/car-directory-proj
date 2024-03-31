@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class Login extends Component
 {
-
     #[Title('Login')]
 
     public LoginForm $form;
@@ -21,7 +20,7 @@ class Login extends Component
         $password = $validatedData['password'];
 
         if ($service->login($username, $password)) {
-            return $this->redirectRoute('dashboard');
+            return $this->redirectRoute('user-list');
         } else {
             $this->addError('login', 'Invalid username or password');
         }

@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 trait HasCollectionPagination
 {
-  public function paginate(Collection|Arrayable $items, int $perPage = 20, int $page = null, array $options = [])
+  public function paginate(Collection|Arrayable $items, int $perPage = 5, int $page = null, array $options = [])
   {
       $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
       $items = $items instanceof Collection ? $items : Collection::make($items);

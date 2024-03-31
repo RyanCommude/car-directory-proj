@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use App\Models\Car;
 use App\Repositories\UserRepository;
 use App\Services\Concerns\HasCollectionPagination;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 
 class UserService
 {
@@ -20,9 +20,18 @@ class UserService
     ) {
     }
 
-    public function accountRegister(array $data): void
+    public function register(array $data): void
     {
         $this->userRepository->create($data);
+    }
+
+    public function updateDetails(int $id, array $data): User
+    {
+        $user = $this->getUser($id);
+        $this->userRepository->update($user, $data);
+        $user = $user->refresh();
+
+        return $user;
     }
 
     public function login(string $username, string $password): bool
@@ -56,5 +65,23 @@ class UserService
         return ($isPaginated == true)
             ? $this->paginate($this->userRepository->fetchAll())
             : $this->userRepository->fetchAll();
+    }
+
+    public function getUser(int $id): User
+    {
+        return $this->userRepository->fetch($id);
+    }
+
+    public function getCars(string $userName, $perPage = 5): LengthAwarePaginator
+    {
+        $user = $this->userRepository->fetchByName($userName);
+
+        if (!$user) {
+            return new LengthAwarePaginator([], 0, $perPage);
+        }
+
+        $cars = Car::where('name', $user->name)->paginate($perPage);
+
+        return $cars;
     }
 }

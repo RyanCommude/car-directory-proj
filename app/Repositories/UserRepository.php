@@ -21,4 +21,19 @@ class UserRepository
     {
         return User::all();
     }
+
+    public function fetch(int $id): User
+    {
+        return User::findOrFail($id);
+    }
+
+    public function update(User $user, array $data): bool
+    {
+        return $user->update($data);
+    }
+
+    public function fetchByName(string $name): ?User
+    {
+        return User::where('name', $name)->first();
+    }
 }

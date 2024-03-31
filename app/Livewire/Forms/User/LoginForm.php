@@ -7,7 +7,6 @@ use Livewire\Form;
 
 class LoginForm extends Form
 {
-
     #[Validate('required', message: 'Please Enter your Username')]
     #[Validate('min:7', message: 'Username too short')]
     public $username = '';
