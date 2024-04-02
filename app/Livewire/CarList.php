@@ -37,6 +37,11 @@ class CarList extends Component
         }
     }
 
+    public function createRoute()
+    {
+        return redirect()->route('user-list');
+    }
+
     public function refreshComponent(CarService $service): void
     {
         $this->cars = $service->getCars($this->user->name);
