@@ -61,6 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @if($users && $users->count() > 0)
                         @foreach($users as $user)
                         <tr class="border-b dark:border-gray-700" wire:key='{{ $user->id }}'>
                             <td class="px-4 py-3">
@@ -71,8 +72,14 @@
                             <td class="px-4 py-3 flex items-center ">
                             <button type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" wire:click='showUser({{ $user->id }})'>Edit</button>
                             </td>
-                        </tr>
+                        
                         @endforeach
+                    @else
+                            <td class="px-6 py-4">
+                                <p>No cars found.</p>
+                            </td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>
